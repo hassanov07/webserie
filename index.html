@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boufassi cima</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        
+        .series-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .series-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+        
+        .enter-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .enter-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .enter-btn:hover::after {
+            left: 100%;
+        }
+        
+        .season-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .season-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .episode-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .episode-btn:hover {
+            transform: translateX(5px);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .glow {
+            text-shadow: 0 0 10px rgba(229, 9, 20, 0.7);
+        }
+        
+        .search-input:focus {
+            box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header with logo and search -->
+        <header class="mb-12 text-center">
+            <div class="flex justify-center items-center mb-6">
+                <i class="fas fa-film text-red-600 text-4xl mr-3"></i>
+                <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-transparent glow">
+                    Boufassi Series
+                </h1>
+            </div>
+            
+            <div class="max-w-2xl mx-auto relative">
+                <div class="flex items-center">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search for series..." 
+                        class="search-input w-full px-6 py-3 rounded-full bg-gray-800 border border-gray-700 focus:outline-none focus:border-red-500 text-white placeholder-gray-400 transition-all duration-300"
+                    >
+                    <button 
+                        onclick="searchSeries()" 
+                        class="ml-3 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full flex items-center transition-all duration-300 transform hover:scale-105"
+                    >
+                        <i class="fas fa-search mr-2"></i> Search
+                    </button>
+                </div>
+                <button 
+                    id="homeBtn" 
+                    class="hidden absolute -bottom-12 left-1/2 transform -translate-x-1/2 bg-gray-800 hover:bg-gray-700 text-white px-6 py-2 rounded-full mt-4 transition-all duration-300"
+                    onclick="goHome()"
+                >
+                    <i class="fas fa-home mr-2"></i> Back to All Series
+                </button>
+            </div>
+        </header>
+
+        <!-- Series Grid -->
+        <div id="seriesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <!-- Prison Break -->
+            <div class="series-card fade-in" data-title="prison break">
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
+                    <div class="p-5 flex-grow">
+                        <h2 class="text-xl font-bold mb-2">Prison Break</h2>
+                        <div class="flex items-center text-gray-400 text-sm mb-4">
+                            <span class="mr-3"><i class="fas fa-star text-yellow-400 mr-1"></i> 8.3</span>
+                            <span><i class="fas fa-calendar-alt mr-1"></i> 2005-2017</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                            A structural engineer installs himself in a prison he helped design to help his falsely accused brother escape.
+                        </p>
+                        <button 
+                            class="enter-btn w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition-all duration-300"
+                            onclick="showSeasons('prison-break')"
+                        >
+                            <i class="fas fa-play mr-2"></i> Watch Now
+                        </button>
+                    </div>
+                    <div id="prison-break-seasons" class="seasons-container px-5 pb-5 hidden">
+                        <div class="space-y-3">
+                            <div class="season">
+                                <button 
+                                    class="season-btn w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 px-4 rounded-lg flex items-center justify-between"
+                                    onclick="showEpisodes('prison-break-1')"
+                                >
+                                    <span>Season 1</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="prison-break-1" class="episodes-container mt-2 space-y-2 hidden">
+                                    <a href="https://pixeldrain.com/u/r5bZ28ob" target="_self" class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 1
+                                    </a>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 2
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 3
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 4
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 5
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 6
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 7
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 8
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 9
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 10
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 11
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 12
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 13
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 14
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 15
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 16
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 17
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 18
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 19
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 20
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 21
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 22
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="season">
+                                <button 
+                                    class="season-btn w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 px-4 rounded-lg flex items-center justify-between"
+                                    onclick="showEpisodes('prison-break-2')"
+                                >
+                                    <span>Season 2</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="prison-break-2" class="episodes-container mt-2 space-y-2 hidden">
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 1
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 2
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 3
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 4
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 5
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 6
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 7
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 8
+                                    </button>
+                                     <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 9
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 10
+                                    </button>
+                                     <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 11
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 12
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 13
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 14
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 15
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 16
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 17
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 18
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 19
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 20
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 21
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 22
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="season">
+                                <button 
+                                    class="season-btn w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 px-4 rounded-lg flex items-center justify-between"
+                                    onclick="showEpisodes('prison-break-3')"
+                                >
+                                    <span>Season 3</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="prison-break-3" class="episodes-container mt-3 space-y-3 hidden">
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 1
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 2
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 3
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 4
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 5
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 6
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 7
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 8
+                                    </button>
+                                     <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 9
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 10
+                                    </button>
+                                     <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 11
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 12
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 13
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Day of the Jackal -->
+            <div class="series-card fade-in" data-title="the day of the jackal">
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
+                    <div class="p-5 flex-grow">
+                        <h2 class="text-xl font-bold mb-2">The Day of the Jackal</h2>
+                        <div class="flex items-center text-gray-400 text-sm mb-4">
+                            <span class="mr-3"><i class="fas fa-star text-yellow-400 mr-1"></i> 7.8</span>
+                            <span><i class="fas fa-calendar-alt mr-1"></i> 2023</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                            A political thriller about an assassin known as "The Jackal" who is hired to kill French President Charles de Gaulle.
+                        </p>
+                        <button 
+                            class="enter-btn w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition-all duration-300"
+                            onclick="showSeasons('jackal')"
+                        >
+                            <i class="fas fa-play mr-2"></i> Watch Now
+                        </button>
+                    </div>
+                    <div id="jackal-seasons" class="seasons-container px-5 pb-5 hidden">
+                        <div class="space-y-3">
+                            <div class="season">
+                                <button 
+                                    class="season-btn w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 px-4 rounded-lg flex items-center justify-between"
+                                    onclick="showEpisodes('jackal-1')"
+                                >
+                                    <span>Season 1</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="jackal-1" class="episodes-container mt-2 space-y-2 hidden">
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 1
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 2
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 3
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 4
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 5
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 6
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 7
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 8
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 9
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 10
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- From -->
+            <div class="series-card fade-in" data-title="from">
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
+                    <div class="p-5 flex-grow">
+                        <h2 class="text-xl font-bold mb-2">From</h2>
+                        <div class="flex items-center text-gray-400 text-sm mb-4">
+                            <span class="mr-3"><i class="fas fa-star text-yellow-400 mr-1"></i> 7.7</span>
+                            <span><i class="fas fa-calendar-alt mr-1"></i> 2022-Present</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                            A mysterious town traps those who enter, as the residents struggle to survive and find a way out.
+                        </p>
+                        <button 
+                            class="enter-btn w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition-all duration-300"
+                            onclick="showSeasons('from')"
+                        >
+                            <i class="fas fa-play mr-2"></i> Watch Now
+                        </button>
+                    </div>
+                    <div id="from-seasons" class="seasons-container px-5 pb-5 hidden">
+                        <div class="space-y-3">
+                            <div class="season">
+                                <button 
+                                    class="season-btn w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 px-4 rounded-lg flex items-center justify-between"
+                                    onclick="showEpisodes('from-1')"
+                                >
+                                    <span>Season 1</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="from-1" class="episodes-container mt-2 space-y-2 hidden">
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 1
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 2
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 3
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 4
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 5
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 6
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 7
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 8
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 9
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 10
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="season">
+                                <button 
+                                    class="season-btn w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 px-4 rounded-lg flex items-center justify-between"
+                                    onclick="showEpisodes('from-2')"
+                                >
+                                    <span>Season 2</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="from-2" class="episodes-container mt-2 space-y-2 hidden">
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 1
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 2
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 3
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 4
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 5
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 6
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 7
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 8
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 9
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 10
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="season">
+                                <button 
+                                    class="season-btn w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 px-4 rounded-lg flex items-center justify-between"
+                                    onclick="showEpisodes('from-3')"
+                                >
+                                    <span>Season 3</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="from-3" class="episodes-container mt-3 space-y-3 hidden">
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 1
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 2
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 3
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 4
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 5
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 6
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 7
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 8
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 9
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 10
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alice in Borderland -->
+            <div class="series-card fade-in" data-title="alice in borderland">
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
+                    <div class="p-5 flex-grow">
+                        <h2 class="text-xl font-bold mb-2">Alice in Borderland</h2>
+                        <div class="flex items-center text-gray-400 text-sm mb-4">
+                            <span class="mr-3"><i class="fas fa-star text-yellow-400 mr-1"></i> 7.6</span>
+                            <span><i class="fas fa-calendar-alt mr-1"></i> 2020-Present</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                            An aimless gamer and his friends find themselves in a parallel Tokyo where they must compete in dangerous games to survive.
+                        </p>
+                        <button 
+                            class="enter-btn w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition-all duration-300"
+                            onclick="showSeasons('alice')"
+                        >
+                            <i class="fas fa-play mr-2"></i> Watch Now
+                        </button>
+                    </div>
+                    <div id="alice-seasons" class="seasons-container px-5 pb-5 hidden">
+                        <div class="space-y-3">
+                            <div class="season">
+                                <button 
+                                    class="season-btn w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 px-4 rounded-lg flex items-center justify-between"
+                                    onclick="showEpisodes('alice-1')"
+                                >
+                                    <span>Season 1</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="alice-1" class="episodes-container mt-2 space-y-2 hidden">
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 1
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 2
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 3
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 4
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 5
+                                    </button>
+                                     <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 6
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 7
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 8
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="season">
+                                <button 
+                                    class="season-btn w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 px-4 rounded-lg flex items-center justify-between"
+                                    onclick="showEpisodes('alice-2')"
+                                >
+                                    <span>Season 2</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="alice-2" class="episodes-container mt-2 space-y-2 hidden">
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 1
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 2
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 3
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 4
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 5
+                                    </button>
+                                     <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 6
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 7
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 8
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+              <!-- Zombieverse -->
+            <div class="series-card fade-in" data-title="Zombieverse">
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
+                    <div class="p-5 flex-grow">
+                        <h2 class="text-xl font-bold mb-2">Zombieverse</h2>
+                        <div class="flex items-center text-gray-400 text-sm mb-4">
+                            <span class="mr-3"><i class="fas fa-star text-yellow-400 mr-1"></i> 4.5</span>
+                            <span><i class="fas fa-calendar-alt mr-1"></i> 2023</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                            The zombie virus is spreading across Korea and getting out of control... Who will overcome the undead and stand firm in the face of difficult challenges and survive?
+                        </p>
+                        <button 
+                            class="enter-btn w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition-all duration-300"
+                            onclick="showSeasons('Zombie')"
+                        >
+                            <i class="fas fa-play mr-2"></i> Watch Now
+                        </button>
+                    </div>
+                    <div id="Zombie-seasons" class="seasons-container px-5 pb-5 hidden">
+                        <div class="space-y-3">
+                            <div class="season">
+                                <button 
+                                    class="season-btn w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 px-4 rounded-lg flex items-center justify-between"
+                                    onclick="showEpisodes('Zombie-1')"
+                                >
+                                    <span>Season 1</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="Zombie-1" class="episodes-container mt-2 space-y-2 hidden">
+                                    <a href="https://pixeldrain.com/u/Lzq2UmHw" target="_self" class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 1
+                                    </a>
+                                    <a href="https://pixeldrain.com/u/DRrq8nUd" target="_self" class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 2
+                                    </a>
+                                    <a href="https://pixeldrain.com/u/8x3AVcou" target="_self" class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 3
+                                    </a>
+                                    <a href="https://pixeldrain.com/u/HNm6rjp7" target="_self" class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 4
+                                    </a>
+                                    <a href="https://pixeldrain.com/u/BApNqnEn" target="_self" class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 5
+                                    </a>
+                                    <a href="https://pixeldrain.com/u/mFFEYsT9" target="_self" class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 6
+                                    </a>
+                                    <a href="https://pixeldrain.com/u/3LGTSMiM" target="_self" class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 7
+                                    </a>
+                                    <a href="https://pixeldrain.com/u/TJucjYgk" target="_self" class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 8
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="season">
+                                <button 
+                                    class="season-btn w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 px-4 rounded-lg flex items-center justify-between"
+                                    onclick="showEpisodes('Zombie-2')"
+                                >
+                                    <span>Season 2</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="Zombie-2" class="episodes-container mt-2 space-y-2 hidden">
+                                    <a href="https://pixeldrain.com/u/uTzQRahw" target="_self" class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 1
+                                    </a>
+                                    <a href="https://pixeldrain.com/u/57iyWiTi" target="_self" class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 2
+                                    </a>
+                                    <a href="https://pixeldrain.com/u/RE6jhQna" target="_self" class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 3
+                                    </a>
+                                    <a href="https://pixeldrain.com/u/ofBt6jb2" target="_self" class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 4
+                                    </a>
+                                    <a href="https://pixeldrain.com/u/MD99yhwR" target="_self" class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 5
+                                    </a>
+                                    <a href="https://pixeldrain.com/u/zVhEirEg" target="_self" class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 6
+                                    </a>
+                                    <a href="https://pixeldrain.com/u/MRhg5p9B" target="_self" class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 7
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Banshee -->
+            <div class="series-card fade-in" data-title="banshee">
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
+                    <div class="p-5 flex-grow">
+                        <h2 class="text-xl font-bold mb-2">Banshee</h2>
+                        <div class="flex items-center text-gray-400 text-sm mb-4">
+                            <span class="mr-3"><i class="fas fa-star text-yellow-400 mr-1"></i> 8.4</span>
+                            <span><i class="fas fa-calendar-alt mr-1"></i> 2013-2016</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                            An ex-con assumes the identity of a murdered sheriff in the small town of Banshee, Pennsylvania.
+                        </p>
+                        <button 
+                            class="enter-btn w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition-all duration-300"
+                            onclick="showSeasons('banshee')"
+                        >
+                            <i class="fas fa-play mr-2"></i> Watch Now
+                        </button>
+                    </div>
+                    <div id="banshee-seasons" class="seasons-container px-5 pb-5 hidden">
+                        <div class="space-y-3">
+                            <div class="season">
+                                <button 
+                                    class="season-btn w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 px-4 rounded-lg flex items-center justify-between"
+                                    onclick="showEpisodes('banshee-1')"
+                                >
+                                    <span>Season 1</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="banshee-1" class="episodes-container mt-2 space-y-2 hidden">
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 1
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 2
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 3
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 4
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 5
+                                    </button>
+                                     <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 6
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 7
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 8
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 9
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 10
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="season">
+                                <button 
+                                    class="season-btn w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 px-4 rounded-lg flex items-center justify-between"
+                                    onclick="showEpisodes('banshee-2')"
+                                >
+                                    <span>Season 2</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="banshee-2" class="episodes-container mt-2 space-y-2 hidden">
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 1
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 2
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 3
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 4
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 5
+                                    </button>
+                                     <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 6
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 7
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 8
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 9
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 10
+                                    </button>
+                                </div>
+                            </div>
+                             <div class="season">
+                                <button 
+                                    class="season-btn w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 px-4 rounded-lg flex items-center justify-between"
+                                    onclick="showEpisodes('banshee-3')"
+                                >
+                                    <span>Season 3</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="banshee-3" class="episodes-container mt-3 space-y-3 hidden">
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 1
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 2
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 3
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 4
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 5
+                                    </button>
+                                     <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 6
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 7
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 8
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 9
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 10
+                                    </button>
+                                </div>
+                            </div>
+                             <div class="season">
+                                <button 
+                                    class="season-btn w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-2 px-4 rounded-lg flex items-center justify-between"
+                                    onclick="showEpisodes('banshee-4')"
+                                >
+                                    <span>Season 4</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="banshee-4" class="episodes-container mt-4 space-y-4 hidden">
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 1
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 2
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 3
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 4
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 5
+                                    </button>
+                                     <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 6
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 7
+                                    </button>
+                                    <button class="episode-btn block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded flex items-center">
+                                        <i class="fas fa-play-circle mr-3 text-red-400"></i> Episode 8
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced showSeasons function with animation
+        function showSeasons(seriesId) {
+            document.querySelectorAll('.series-card').forEach(card => {
+                if (!card.querySelector(`#${seriesId}-seasons`)) {
+                    card.style.display = 'none';
+                } else {
+                    card.style.display = 'block';
+                    const seasons = document.getElementById(`${seriesId}-seasons`);
+                    if (seasons) {
+                        seasons.style.display = 'block';
+                        seasons.classList.add('fade-in');
+                    }
+                }
+            });
+
+            // Scroll to the series card
+            const seriesCard = document.querySelector(`[data-title="${seriesId.replace('-', ' ')}"]`);
+            if (seriesCard) {
+                seriesCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            document.getElementById('homeBtn').style.display = 'inline-block';
+        }
+
+        // Enhanced showEpisodes function with animation
+        function showEpisodes(seasonId) {
+            const episodesContainer = document.getElementById(seasonId);
+            if (episodesContainer) {
+                episodesContainer.style.display = 
+                    (episodesContainer.style.display === 'none' || episodesContainer.style.display === '') 
+                    ? 'block' : 'none';
+                
+                // Toggle chevron icon
+                const seasonBtn = episodesContainer.previousElementSibling;
+                if (seasonBtn) {
+                    const icon = seasonBtn.querySelector('i');
+                    if (icon) {
+                        if (episodesContainer.style.display === 'block') {
+                            icon.classList.remove('fa-chevron-down');
+                            icon.classList.add('fa-chevron-up');
+                        } else {
+                            icon.classList.remove('fa-chevron-up');
+                            icon.classList.add('fa-chevron-down');
+                        }
+                    }
+                }
+            }
+        }
+
+        // Enhanced goHome function with animation
+        function goHome() {
+            document.getElementById('searchInput').value = '';
+            
+            document.querySelectorAll('.series-card').forEach(card => {
+                card.style.display = 'block';
+                card.classList.add('fade-in');
+            });
+            
+            document.querySelectorAll('.seasons-container').forEach(season => {
+                season.style.display = 'none';
+            });
+            
+            document.querySelectorAll('.episodes-container').forEach(ep => {
+                ep.style.display = 'none';
+                // Reset chevron icons
+                const seasonBtn = ep.previousElementSibling;
+                if (seasonBtn) {
+                    const icon = seasonBtn.querySelector('i');
+                    if (icon) {
+                        icon.classList.remove('fa-chevron-up');
+                        icon.classList.add('fa-chevron-down');
+                    }
+                }
+            });
+            
+            let unavailableMsg = document.getElementById('unavailable-msg');
+            if (unavailableMsg) unavailableMsg.remove();
+            
+            document.getElementById('homeBtn').style.display = 'none';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Enhanced search function with debounce
+        let searchTimeout;
+        function searchSeries() {
+            clearTimeout(searchTimeout);
+            
+            searchTimeout = setTimeout(() => {
+                const searchInput = document.getElementById('searchInput');
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                const seriesCards = document.querySelectorAll('.series-card');
+                let found = false;
+                
+                seriesCards.forEach(card => {
+                    const title = card.getAttribute('data-title');
+                    if (title.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        card.classList.add('fade-in');
+                        found = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Hide seasons and episodes that were shown
+                document.querySelectorAll('.seasons-container').forEach(season => {
+                    season.style.display = 'none';
+                });
+                document.querySelectorAll('.episodes-container').forEach(episodes => {
+                    episodes.style.display = 'none';
+                });
+                
+                let unavailableMsg = document.getElementById('unavailable-msg');
+                if (!found && searchTerm !== '') {
+                    if (!unavailableMsg) {
+                        unavailableMsg = document.createElement('div');
+                        unavailableMsg.id = 'unavailable-msg';
+                        unavailableMsg.textContent = 'No series found matching your search';
+                        unavailableMsg.className = 'text-center text-red-500 text-xl mt-8 mb-12 fade-in';
+                        document.querySelector('.series-container').parentNode.insertBefore(unavailableMsg, document.querySelector('.series-container').nextSibling);
+                    }
+                } else {
+                    if (unavailableMsg) unavailableMsg.remove();
+                }
+                
+                document.getElementById('homeBtn').style.display = (searchTerm !== '') ? 'inline-block' : 'none';
+            }, 300);
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search on Enter key
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchSeries();
+                }
+            });
+            
+            // Search as you type
+            document.getElementById('searchInput').addEventListener('input', searchSeries);
+            
+            // Add animation to all series cards on load
+            const cards = document.querySelectorAll('.series-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('fade-in');
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
