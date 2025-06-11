@@ -14,7 +14,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+            background: linear-gradient(135deg, #23545c 0%, #154a3d 50%, #0d4a53 100%);
             min-height: 100vh;
             color: #fff;
         }
@@ -26,7 +26,7 @@
         }
         
         .series-card:hover {
-            transform: translateY(-5px) scale(1.02);
+            transform: translateY(-5px) scale(1.03);
         }
         
         .enter-btn {
@@ -41,8 +41,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: all 0.5s ease;
+            background: linear-gradient(110deg, transparent, rgb(18, 84, 80), transparent);
+            transition: all 0.9s ease;
         }
         
         .enter-btn:hover::after {
@@ -75,11 +75,11 @@
         }
         
         .glow {
-            text-shadow: 0 0 10px rgba(229, 9, 20, 0.7);
+            text-shadow: 0 0 10px rgb(198, 198, 198);
         }
         
         .search-input:focus {
-            box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.3);
+            box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.3);
         }
     </style>
 </head>
@@ -88,8 +88,8 @@
         <!-- Header with logo and search -->
         <header class="mb-12 text-center">
             <div class="flex justify-center items-center mb-6">
-                <i class="fas fa-film text-red-600 text-4xl mr-3"></i>
-                <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-transparent glow">
+                <i class="fas fa-film text-black-600 text-4xl mr-3"></i>
+                <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-white bg-clip-text text-transparent glow">
                     Boufassi Series
                 </h1>
             </div>
@@ -100,11 +100,11 @@
                         type="text" 
                         id="searchInput" 
                         placeholder="Search for series..." 
-                        class="search-input w-full px-6 py-3 rounded-full bg-gray-800 border border-gray-700 focus:outline-none focus:border-red-500 text-white placeholder-gray-400 transition-all duration-300"
+                        class="search-input w-full px-6 py-3 rounded-full bg-gray-700 border border-blue-600 focus:outline-none focus:border-green-500 text-white placeholder-gray-400 transition-all duration-300"
                     >
                     <button 
                         onclick="searchSeries()" 
-                        class="ml-3 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full flex items-center transition-all duration-300 transform hover:scale-105"
+                        class="ml-3 bg-blue-800 hover:bg-blue-700 text-white px-6 py-3 rounded-full flex items-center transition-all duration-300 transform hover:scale-105"
                     >
                         <i class="fas fa-search mr-2"></i> Search
                     </button>
@@ -131,7 +131,7 @@
                             <span class="mr-3"><i class="fas fa-star text-yellow-400 mr-1"></i> 8.3</span>
                             <span><i class="fas fa-calendar-alt mr-1"></i> 2005-2017</span>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                        <p class="text-gray-200 text-sm mb-8 line-clamp-8">
                             A structural engineer installs himself in a prison he helped design to help his falsely accused brother escape.
                         </p>
                         <button 
@@ -363,8 +363,8 @@
                             <span class="mr-3"><i class="fas fa-star text-yellow-400 mr-1"></i> 8.3</span>
                             <span><i class="fas fa-calendar-alt mr-1"></i> 2004-2010</span>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
-                            The survivors of the Oceanic 815 crash are forced to live together on a remote island, in a dangerous new world filled with its own unique threats.
+                         <p class="text-gray-200 text-sm mb-8 line-clamp-8">
+                            The survivors of the Oceanic 815 crash are forced to live together on a remote island,new world filled with its own unique threats.
                         </p>
                         <button 
                             class="enter-btn w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition-all duration-300"
@@ -636,13 +636,13 @@
             <div class="series-card fade-in" data-title="the day of the jackal">
                 <div class="bg-gray-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
                     <div class="p-5 flex-grow">
-                         <img src="jackal.png" alt="hhhhh" class="w-full h-64 object-cover">
+                         <img src="jackal.png"  class="w-full h-64 object-cover">
                         <h2 class="text-xl font-bold mb-2">The Day of the Jackal</h2>
                         <div class="flex items-center text-gray-400 text-sm mb-4">
                             <span class="mr-3"><i class="fas fa-star text-yellow-400 mr-1"></i> 7.8</span>
                             <span><i class="fas fa-calendar-alt mr-1"></i> 2023</span>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                         <p class="text-gray-200 text-sm mb-8 line-clamp-8">
                             A political thriller about an assassin known as "The Jackal" who is hired to kill French President Charles de Gaulle.
                         </p>
                         <button 
@@ -710,7 +710,7 @@
                             <span class="mr-3"><i class="fas fa-star text-yellow-400 mr-1"></i> 7.7</span>
                             <span><i class="fas fa-calendar-alt mr-1"></i> 2022-Present</span>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                        <p class="text-gray-200 text-sm mb-8 line-clamp-8">
                             A mysterious town traps those who enter, as the residents struggle to survive and find a way out.
                         </p>
                         <button 
@@ -861,8 +861,8 @@
                             <span class="mr-3"><i class="fas fa-star text-yellow-400 mr-1"></i> 7.6</span>
                             <span><i class="fas fa-calendar-alt mr-1"></i> 2020-Present</span>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
-                            An aimless gamer and his friends find themselves in a parallel Tokyo where they must compete in dangerous games to survive.
+                        <p class="text-gray-200 text-sm mb-8 line-clamp-8">
+                            An aimless gamer and his friends find themselves in a parallel Tokyo where they must compete in dangerous games to survive. wach this now .
                         </p>
                         <button 
                             class="enter-btn w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition-all duration-300"
@@ -959,7 +959,7 @@
                             <span class="mr-3"><i class="fas fa-star text-yellow-400 mr-1"></i> 4.5</span>
                             <span><i class="fas fa-calendar-alt mr-1"></i> 2023</span>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                        <p class="text-gray-200 text-sm mb-8 line-clamp-8">
                             The zombie virus is spreading across Korea and getting out of control... Who will overcome the undead and stand firm in the face of difficult challenges and survive?
                         </p>
                         <button 
@@ -1054,7 +1054,7 @@
                             <span class="mr-3"><i class="fas fa-star text-yellow-400 mr-1"></i> 8.4 </span>
                             <span><i class="fas fa-calendar-alt mr-1"></i> 2022 - now</span>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                        <p class="text-gray-200 text-sm mb-8 line-clamp-8">
                             A model student whose frail body hides the reality that he is a fierce warrior in battles against bullies, armed with his blood and psychological and material tools.
                         </p>
                         <button 
@@ -1152,7 +1152,7 @@
                             <span class="mr-3"><i class="fas fa-star text-yellow-400 mr-1"></i> 8.0</span>
                             <span><i class="fas fa-calendar-alt mr-1"></i> 2024</span>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                        <p class="text-gray-200 text-sm mb-8 line-clamp-8">
                            An action drama in which a niece who lost her parents and grew up in the hands of an uncle who runs a shopping mall, faces a new truth after her uncle's sudden death.
                         </p>
                         <button 
@@ -1215,7 +1215,7 @@
                             <span class="mr-3"><i class="fas fa-star text-yellow-400 mr-1"></i> 8.4</span>
                             <span><i class="fas fa-calendar-alt mr-1"></i> 2013-2016</span>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">
+                        <p class="text-gray-200 text-sm mb-8 line-clamp-8">
                             An ex-con assumes the identity of a murdered sheriff in the small town of Banshee, Pennsylvania.
                         </p>
                         <button 
